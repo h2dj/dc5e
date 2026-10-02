@@ -10,7 +10,7 @@ import { elements, isElementId } from "@/lib/elements";
 import { groupEnabled } from "@/lib/group";
 import { relationTypes } from "@/lib/relations";
 import { buildResult } from "@/lib/resultEngine";
-import { resetSelections, resultPath } from "@/lib/storage";
+import { absoluteUrl, resetSelections, resultPath } from "@/lib/storage";
 import type { ElementId, RelationType } from "@/types/diagnosis";
 
 function Flow({ ids }: { ids: ElementId[] }) {
@@ -68,7 +68,7 @@ export default function ResultView() {
   const [shareUrl, setShareUrl] = useState("");
 
   useEffect(() => {
-    if (valid) setShareUrl(new URL(resultPath(a, b, c), window.location.origin).toString());
+    if (valid) setShareUrl(absoluteUrl(resultPath(a, b, c)));
   }, [valid, a, b, c]);
 
   if (!result || !valid) {

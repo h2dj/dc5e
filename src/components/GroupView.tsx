@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import GroupChart from "@/components/GroupChart";
 import { MIN_GROUP_SIZE, fetchGroupSummary, groupEnabled, normalizeSessionId, summarizeGroup } from "@/lib/group";
 import type { GroupSummary } from "@/lib/group";
+import { absoluteUrl } from "@/lib/storage";
 
 const REFRESH_MS = 15000;
 
@@ -86,7 +87,7 @@ export default function GroupView() {
     );
   }
 
-  const shareStart = typeof window !== "undefined" ? `${window.location.origin}/?s=${sessionId}` : "";
+  const shareStart = typeof window !== "undefined" ? absoluteUrl(`/?s=${sessionId}`) : "";
 
   return (
     <main className="space-y-5 py-2">

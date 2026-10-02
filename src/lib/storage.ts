@@ -43,3 +43,10 @@ export function resetSelections(): void {
 export function resultPath(a: string, b: string, c: string): string {
   return `/result/?a=${a}&b=${b}&c=${c}`;
 }
+
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+/** 공유·QR용 절대 주소(배포 하위 경로 포함). 브라우저에서만 호출한다. */
+export function absoluteUrl(path: string): string {
+  return `${window.location.origin}${BASE_PATH}${path}`;
+}

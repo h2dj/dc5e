@@ -13,6 +13,12 @@ npm test        # 125개 조합 전수 테스트 등
 npm run build   # 정적 사이트를 out/ 에 생성 → 아무 정적 호스팅(Netlify, Vercel, GitHub Pages 등)에 올리면 됨
 ```
 
+## 배포
+
+`main` 브랜치에 머지되면 GitHub Actions(`.github/workflows/deploy.yml`)가 타입검사·테스트·빌드 후
+`gh-pages` 브랜치로 배포합니다 → https://h2dj.github.io/dc5e/
+PR에서는 같은 검사와 빌드만 돌고 배포하지 않습니다.
+
 ## 화면
 
 | 경로 | 내용 |
@@ -34,8 +40,8 @@ npm run build   # 정적 사이트를 out/ 에 생성 → 아무 정적 호스�
 
 1. Supabase 프로젝트를 만들고 SQL Editor에서 `supabase/schema.sql` 실행
 2. 모임 세션 생성: `insert into workshop_sessions(id, title) values ('bingo-seoul-20261002', '빈고 경인권 조합원 모임');`
-3. `.env.example`을 참고해 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` 설정 후 빌드
-4. 참가자에게 `/?s=bingo-seoul-20261002` 링크(QR)를 나눠주고, 진행자 화면에 `/group/?s=bingo-seoul-20261002` 띄우기
+3. 저장소 Settings → Secrets and variables → Actions → **Variables**에 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` 등록(로컬은 `.env.local`) 후 다시 배포
+4. 참가자에게 `/?s=bingo-seoul-20261002` 링크(QR)를 나눠주고, 진행자 화면에 `/group/?s=bingo-seoul-20261002` 띄우기(배포 주소 기준 `https://h2dj.github.io/dc5e/...`)
 5. 마감: `update workshop_sessions set is_open = false where id = '...';`
 
 환경변수가 없으면 모임 버튼이 숨겨지고 개인 결과 기능만 동작합니다.
